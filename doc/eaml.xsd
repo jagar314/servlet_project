@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="Titulacion">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="NombreTit" type="xs:string" />
+				<xs:element name="Ambito">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="humanidades" />
+							<xs:enumeration value="ciencias" />
+							<xs:enumeration value="tecnologia" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Curso" minOccurs="1" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Materia" minOccurs="1" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="NombreMat" type="xs:string" />
+										<xs:element name="Convocatoria" minOccurs="1"
+											maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="NombreConv">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:enumeration value="Diciembre" />
+																<xs:enumeration value="Mayo" />
+																<xs:enumeration value="Julio" />
+																<xs:enumeration value="FinCarrera" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Alumno" minOccurs="0"
+														maxOccurs="unbounded">
+														<xs:complexType mixed="true">
+															<xs:sequence>
+																<xs:element name="NombreAlu" type="xs:string" />
+																<xs:choice>
+																	<xs:element name="Dni">
+																		<xs:simpleType>
+																			<xs:restriction base="xs:string">
+																				<xs:pattern value="(\d{8})([A-Z]{1})|([a-z]{1})" />
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:element>
+																	<xs:element name="Residente">
+																		<xs:simpleType>
+																			<xs:restriction base="xs:string">
+																				<xs:pattern value="(\d{7})([-]?)([A-Z]{1})" />
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:element>
+																</xs:choice>
+																<xs:element name="Nota">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:enumeration value="suspenso" />
+																			<xs:enumeration value="aprobado" />
+																			<xs:enumeration value="notable" />
+																			<xs:enumeration value="sobresaliente" />
+																			<xs:enumeration value="matricula de honor" />
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="OtraTitulacion" minOccurs="0"
+																	maxOccurs="unbounded">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="NombreTit" type="xs:string" />
+																			<xs:element name="EAML" type="xs:anyURI" />
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="caracter" default="troncal">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:pattern value="troncal|especialidad|optativa" />
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="numero" use="required">
+							<xs:simpleType>
+								<xs:restriction base="xs:integer">
+									<xs:pattern value="1|2|3|4" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="sede">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="Vigo|Orense|Pontevedra" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>
+
